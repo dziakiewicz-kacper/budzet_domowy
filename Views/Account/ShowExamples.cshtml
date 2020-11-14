@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ShowExamples";
+}
+
+@{int count = ViewBag.Count > 0 ? count = ViewBag.Count : count = 100;}
+<table class="table table-bordered">
+    <tbody>
+        @foreach (var x in ViewBag.List)
+        {
+            if (count <= 0)
+            {
+                break;
+            }
+            else
+            {
+                <tr class="bg-dark text-white">
+                    <th scope="col">#</th>
+                    <th scope="col">Imie</th>
+                    <th scope="col">Nazwisko</th>
+                    <th scope="col">Data urodzenia - YYYY/MM/DD</th>
+                </tr>
+                <tr>
+                    <th scope="row">@x.ID</th>
+                    <td>@x.Person.FirstName</td>
+                    <td>@x.Person.LastName</td>
+                    <td>@x.Person.DateOfBirth.Year - @x.Person.DateOfBirth.Month - @x.Person.DateOfBirth.Day</td>
+                </tr>
+                <tr class="bg-dark text-white">
+                    <th scope="col">Ulica</th>
+                    <th scope="col">Numer Domu/Mieszkania</th>
+                    <th scope="col">Kod pocztowy</th>
+                    <th scope="col">Miasto</th>
+                </tr>
+                <tr>
+                    <td>@x.Person.GetAddress.Street</td>
+                    <td>@x.Person.GetAddress.Number</td>
+                    <td>@x.Person.GetAddress.ZipCode</td>
+                    <td>@x.Person.GetAddress.Town</td>
+                </tr>
+                <tr class="bg-dark text-white">
+                    <th scope="col">Adres Mail</th>
+                    <th scope="col">Hasło</th>
+                </tr>
+                <tr>
+                    <td>@x.Person.GetLogin.GetLogin</td>
+                    <td>@x.Person.GetLogin.GetPassword</td>
+                </tr>
+                <tr class="separate-row"></tr>
+            }
+            { count--; }
+        }
+    </tbody>
+</table>
+<form action="ShowExamples" method="get">
+    <label>
+        Ilość kont:
+        <input type="number" name="id" max="100" />
+    </label>
+    <input type="submit" value="Generuj" />
+</form>
