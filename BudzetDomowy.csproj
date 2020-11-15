@@ -191,6 +191,7 @@
     <Compile Include="Models\Cost.cs" />
     <Compile Include="Models\CostCategory.cs" />
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\DateGenerate.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GoalStatus.cs" />
     <Compile Include="Models\ICommand.cs" />
@@ -211,7 +212,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Controllers\json-schema.json" />
+    <Content Include="App_Data\address.json" />
+    <Content Include="App_Data\man.json" />
+    <Content Include="App_Data\woman.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -241,9 +244,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Account\ShowExamples.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

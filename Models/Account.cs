@@ -12,6 +12,7 @@ namespace BudzetDomowy.Models
         private Budget budget;
         private ICommand command;
         private List<Goal> goals;
+        public static List<Account> ListAccount = null;
         public int ID { get => this.id; }
         public Person Person { get => this.person; }
         public Budget Budget { get => this.budget; }
@@ -41,16 +42,15 @@ namespace BudzetDomowy.Models
         }
         public static List<Account> Examples(int count)
         {
-            List<Account> accounts = new List<Account>();
-            DateTime date = new DateTime(2000, 12, 1);
+            List<Account> listAccounts = new List<Account>();
             for (int i = 0; i <= count; i++)
             {
-                var person = Person.Examples();
+                Person person = Person.Examples();
                 var budget = new Budget(i);
                 Account account = new Account(i, person, budget);
-                accounts.Add(account);
+                listAccounts.Add(account);
             }
-            return accounts;
+            return listAccounts;
         }
     }
 }

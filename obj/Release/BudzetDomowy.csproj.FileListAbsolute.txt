@@ -113,8 +113,8 @@ C:\Users\Kacper\source\repos\BudzetDomowy\bin\pl\System.Web.Razor.resources.dll
 C:\Users\Kacper\source\repos\BudzetDomowy\bin\pl\System.Web.WebPages.resources.dll
 C:\Users\Kacper\source\repos\BudzetDomowy\bin\pl\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Kacper\source\repos\BudzetDomowy\bin\pl\System.Web.WebPages.Razor.resources.dll
-C:\Users\Kacper\source\repos\BudzetDomowy\obj\Debug\BudzetDomowy.csproj.CoreCompileInputs.cache
-C:\Users\Kacper\source\repos\BudzetDomowy\obj\Debug\BudzetDomowy.csproj.CopyComplete
-C:\Users\Kacper\source\repos\BudzetDomowy\obj\Debug\BudzetDomowy.dll
-C:\Users\Kacper\source\repos\BudzetDomowy\obj\Debug\BudzetDomowy.pdb
-C:\Users\Kacper\source\repos\BudzetDomowy\obj\Debug\BudzetDomowy.csprojAssemblyReference.cache
+C:\Users\Kacper\source\repos\BudzetDomowy\obj\Release\BudzetDomowy.csprojAssemblyReference.cache
+C:\Users\Kacper\source\repos\BudzetDomowy\obj\Release\BudzetDomowy.csproj.CoreCompileInputs.cache
+C:\Users\Kacper\source\repos\BudzetDomowy\obj\Release\BudzetDomowy.csproj.CopyComplete
+C:\Users\Kacper\source\repos\BudzetDomowy\obj\Release\BudzetDomowy.dll
+C:\Users\Kacper\source\repos\BudzetDomowy\obj\Release\BudzetDomowy.pdb

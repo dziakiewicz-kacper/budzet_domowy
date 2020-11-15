@@ -13,7 +13,7 @@ namespace BudzetDomowy.Models
         public string GetLogin { get => this.login; }
         //TESTY
         public string GetPassword { get => this.password; }
-        private Login()
+        public Login()
         {
             this.login = string.Empty;
             this.password = string.Empty;
@@ -26,8 +26,7 @@ namespace BudzetDomowy.Models
         public static Login Examples(Person person)
         {
             string mail = person.LastName.ToLower() + "." + person.FirstName.ToLower() + "@ebudzet.pl";
-            Random random = new Random();
-            string password = random.Next(00000000, 99999999).ToString();
+            string password = DateGenerate.random.Next(00000000, 99999999).ToString();
             Login login = new Login(mail, password);
             return login;
         }

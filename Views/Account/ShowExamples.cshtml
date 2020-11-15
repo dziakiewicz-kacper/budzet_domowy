@@ -3,9 +3,11 @@
     ViewBag.Title = "ShowExamples";
 }
 
-@{int count = ViewBag.Count > 0 ? count = ViewBag.Count : count = 100;}
+@if (ViewBag.List != null)
+    {
 <table class="table table-bordered">
     <tbody>
+    @{int count = ViewBag.Count > 0 ? count = ViewBag.Count : count = 100;}
         @foreach (var x in ViewBag.List)
         {
             if (count <= 0)
@@ -59,3 +61,4 @@
     </label>
     <input type="submit" value="Generuj" />
 </form>
+}
