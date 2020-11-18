@@ -44,6 +44,8 @@ namespace BudzetDomowy.Models
         }
         public static void ShowList()
         {
+            womanDictionary = SetWomanDictionary();
+            manDictionary = SetManDictionary();
         }
     }
 }

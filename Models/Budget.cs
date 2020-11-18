@@ -16,10 +16,20 @@ namespace BudzetDomowy.Models
         private Budget()
         {
             this.id = 0;
+            this.incomes = new List<Income>();
+            this.costs = new List<Cost>();
         }
         public Budget(int id) : this()
         {
             this.id = id;
+        }
+        public void SetCosts(List<Cost> costs)
+        {
+            this.costs = costs;
+        }
+        public void SetIncomes(List<Income> incomes)
+        {
+            this.incomes = incomes;
         }
     }
 }

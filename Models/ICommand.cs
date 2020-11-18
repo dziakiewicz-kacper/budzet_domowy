@@ -8,5 +8,6 @@ namespace BudzetDomowy.Models
 {
     public interface ICommand
     {
+        public void Execute(Account account);
     }
 }
