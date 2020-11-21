@@ -14,6 +14,11 @@ namespace BudzetDomowy.Controllers
             return View();
         }
         [HttpPost]
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
         public ActionResult PerformLogin(string login, string password)
         {
             if (Session["login"] == null)
