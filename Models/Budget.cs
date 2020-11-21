@@ -13,7 +13,7 @@ namespace BudzetDomowy.Models
         public int ID { get => this.id; }
         public List<Income> Incomes { get => this.incomes; }
         public List<Cost> Costs { get => this.costs; }
-        private Budget()
+        public Budget()
         {
             this.id = 0;
             this.incomes = new List<Income>();
@@ -23,13 +23,39 @@ namespace BudzetDomowy.Models
         {
             this.id = id;
         }
-        public void SetCosts(List<Cost> costs)
+        public void AddToList(object item)
         {
-            this.costs = costs;
+            if (item is Cost)
+            {
+                this.costs.Add(item as Cost);
+            } else
+            {
+                this.incomes.Add(item as Income);
+            }
         }
-        public void SetIncomes(List<Income> incomes)
+        public void DeleteFromList(object item)
         {
-            this.incomes = incomes;
+            if (item is Cost)
+            {
+                Cost cost = item as Cost;
+                int id = cost.ID;
+                costs.RemoveAll(c => c.ID == id);
+            } else
+            {
+                Income income = item as Income;
+                int id = income.ID;
+                incomes.RemoveAll(i => i.ID == id);
+            }
+        }
+        public void SetList(object item)
+        {
+            if (item is List<Cost>)
+            {
+                this.costs = item as List<Cost>;
+            } else
+            {
+                this.incomes = item as List<Income>;
+            }
         }
     }
 }

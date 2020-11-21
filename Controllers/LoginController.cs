@@ -9,7 +9,6 @@ namespace BudzetDomowy.Controllers
 {
     public class LoginController : Controller
     {
-        public Account account = null;
         public ActionResult Index()
         {
             return View();
@@ -17,25 +16,25 @@ namespace BudzetDomowy.Controllers
         [HttpPost]
         public ActionResult PerformLogin(string login, string password)
         {
-            if (Session["user"] == null)
+            if (Session["login"] == null)
             {
                 int id;
                 Session["ResultLogin"] = null;
                 if (Account.VerifyAccount(out id, login, password) == false)
                 {
-                    Session["ResultLogin"] = "False";
                     return Redirect(Url.Action("Index", "Login"));
                 }
-                account = Account.SearchAccount(id);
-                Session["user"] = account.Person.FirstName;
-                return Redirect(Url.Action("Index", "Login"));
+                Account account = new Account(id);
+                account.ReadAccount();
+                Session["login"] = true;
+                TempData["account"] = account;
+                return RedirectToAction("Index", "Account");
             }
-            return Redirect(Url.Action("Index", "Login"));
+            return Redirect(Url.Action("Index", "Account"));
         }
         public ActionResult Logout()
         {
-            account = null;
-            Session["user"] = null;
+            Session["login"] = null;
             return Redirect(Url.Action("Index", "Login"));
         }
     }

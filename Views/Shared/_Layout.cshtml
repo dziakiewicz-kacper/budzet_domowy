@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - moja aplikacja platformy ASP.NET</title>
@@ -21,11 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Konta", "Index", "Account")</li>
-                    <li>@Html.ActionLink("Logowanie", "Index", "Login")</li>
+                    <li class="text-monospace text-white">@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                    <li class="text-monospace text-white">@Html.ActionLink("Informacje", "About", "Home")</li>
+                    <li class="text-monospace text-white">@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                    @if (Session["login"] == null)
+                    {
+                        <li class="text-monospace text-white">@Html.ActionLink("Logowanie", "Index", "Login")</li>
+                    }
+                    else
+                    {
+                        <li class="text-monospace text-white">@Html.ActionLink("Panel", "Index", "Account")</li>
+                    }
                 </ul>
             </div>
         </div>

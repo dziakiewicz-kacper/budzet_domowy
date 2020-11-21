@@ -188,6 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\AccountMode.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Budget.cs" />
     <Compile Include="Models\Cost.cs" />
@@ -196,13 +197,13 @@
     <Compile Include="Models\DateGenerate.cs" />
     <Compile Include="Models\Goal.cs" />
     <Compile Include="Models\GoalStatus.cs" />
-    <Compile Include="Models\ICommand.cs" />
+    <Compile Include="Models\ICommandAccount.cs" />
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\IncomeCategory.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\SearchCommand.cs" />
-    <Compile Include="Models\UpdateCommand.cs" />
+    <Compile Include="Models\ReadCommandAccount.cs" />
+    <Compile Include="Models\UpdateCommandAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +249,9 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Account\ShowExamples.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -9,18 +9,26 @@ namespace BudzetDomowy.Controllers
 {
     public class AccountController : Controller
     {
-        static List<Account> accounts = null;
+        private Account account = null;
         public ActionResult Index()
         {
-            DateGenerate.Generate();
-            accounts = new List<Account>();
-            accounts = Account.Examples(100);
-            return View();
+            if (Session["login"] == null || TempData["account"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            account = TempData["account"] as Account;
+            ViewBag.Account = account;
+            return View(ViewBag.Account);
+        }
+        public ActionResult Logout()
+        {
+            Session["login"] = null;
+            account = null;
+            return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         public ActionResult ShowExamples(int id = 100)
         {
-            ViewBag.List = accounts;
             ViewBag.Count = id;
             return View();
         }

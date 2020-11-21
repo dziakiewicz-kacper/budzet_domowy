@@ -32,44 +32,51 @@ namespace BudzetDomowy.Models
             this.number = number;
             this.town = town;
         }
-        public static Address Examples()
+        public void ChangeAddress(Address address)
         {
-            string file = AppDomain.CurrentDomain.BaseDirectory + @"/App_Data/" + "address.json";
-            string numberHouse = GenerateNumberHouse();
-            string zipCode = GenerateZipCode();
-            using (StreamReader sr = new StreamReader(file, Encoding.Default))
-            {
-                string json = sr.ReadToEnd();
-                var dictionary = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(json);
-                string town = dictionary["town"][DateGenerate.random.Next(0, dictionary["town"].Count)];
-                string street = dictionary["street"][DateGenerate.random.Next(0, dictionary["street"].Count)];
-                Address address = new Address(street, zipCode, numberHouse, town);
-                return address;
-            }
+            this.street = address.street;
+            this.street = address.zipCode;
+            this.street = address.number;
+            this.street = address.town;
         }
-        private static string GenerateNumberHouse()
-        {
-            string numberHouse = "";
-            int type = DateGenerate.random.Next(1, 3);
-            switch (type)
-            {
-                case 1:
-                    numberHouse = DateGenerate.random.Next(1, 99).ToString();
-                    break;
-                case 2:
-                    char sign = (char)(DateGenerate.random.Next(65, 69));
-                    numberHouse = DateGenerate.random.Next(1, 99).ToString() + sign;
-                    break;
-                case 3:
-                    numberHouse = DateGenerate.random.Next(1, 10) + "/" + DateGenerate.random.Next(1, 20);
-                    break;
-            }
-            return numberHouse;
-        }
-        private static string GenerateZipCode()
-        {
-            string zipCode = DateGenerate.random.Next(00, 99).ToString() + "-" + DateGenerate.random.Next(000, 999).ToString();
-            return zipCode;
-        }
+        //public static Address Examples()
+        //{
+        //    string file = AppDomain.CurrentDomain.BaseDirectory + @"/App_Data/" + "address.json";
+        //    string numberHouse = GenerateNumberHouse();
+        //    string zipCode = GenerateZipCode();
+        //    using (StreamReader sr = new StreamReader(file, Encoding.Default))
+        //    {
+        //        string json = sr.ReadToEnd();
+        //        var dictionary = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(json);
+        //        string town = dictionary["town"][DateGenerate.random.Next(0, dictionary["town"].Count)];
+        //        string street = dictionary["street"][DateGenerate.random.Next(0, dictionary["street"].Count)];
+        //        Address address = new Address(street, zipCode, numberHouse, town);
+        //        return address;
+        //    }
+        //}
+        //private static string GenerateNumberHouse()
+        //{
+        //    string numberHouse = "";
+        //    int type = DateGenerate.random.Next(1, 3);
+        //    switch (type)
+        //    {
+        //        case 1:
+        //            numberHouse = DateGenerate.random.Next(1, 99).ToString();
+        //            break;
+        //        case 2:
+        //            char sign = (char)(DateGenerate.random.Next(65, 69));
+        //            numberHouse = DateGenerate.random.Next(1, 99).ToString() + sign;
+        //            break;
+        //        case 3:
+        //            numberHouse = DateGenerate.random.Next(1, 10) + "/" + DateGenerate.random.Next(1, 20);
+        //            break;
+        //    }
+        //    return numberHouse;
+        //}
+        //private static string GenerateZipCode()
+        //{
+        //    string zipCode = DateGenerate.random.Next(00, 99).ToString() + "-" + DateGenerate.random.Next(000, 999).ToString();
+        //    return zipCode;
+        //}
     }
 }

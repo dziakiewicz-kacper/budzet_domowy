@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Generator danych</h1>
+    <form method="get" action="@Url.Action("ShowExamples")">
+        <label>
+            Ilość kont:
+            <input type="number" name="id" max="100" />
+        </label>
+        <input type="submit" value="Generuj" />
+    </form>
+</div>

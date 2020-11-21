@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Logowanie";
+}
+
+<h2>Index</h2>
+
+<form method="POST" action="@Url.Action("PerformLogin")">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">Login</div>
+            <input type="text" name="login" />
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">Hasło</div>
+        </div>
+        <input type="text" name="password" />
+    </div>
+    <button type="submit" class="btn btn-primary">Zaloguj się</button>
+</form>
+@if (Session["ResultLogin"] != null)
+{
+    <span>złe dane!</span>
+}
+
+@if (Session["user"] != null)
+{
+    <span>@Session["user"]</span>
+}

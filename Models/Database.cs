@@ -30,96 +30,77 @@ namespace BudzetDomowy.Models
             var con = new MySqlConnection(conString);
             return con;
         }
-        public void Search(Account account)
+        public void ReadAccount(Account account)
         {
             var query = "SELECT * FROM account where id = " + account.ID + ";";
-            List<string> result = Single(query);
-            string loginFromDb = result[1];
-            string password = result[2];
-            Login login = new Login(loginFromDb, password);
+            List<string> result = Select(query);
+            Login login = new Login(result[1], result[2]);
+
+            AccountMode mode = (AccountMode)Enum.Parse(typeof(AccountMode), result[3]);
 
             query = "SELECT * FROM person where id_account = " + account.ID + ";";
-            result = Single(query);
+            result = Select(query);
             int idPerson = Convert.ToInt32(result[0]);
             string firstName = result[2];
             string lastName = result[3];
             DateTime dateOfBirth = DateTime.Parse(result[4]);
             Person person = new Person(idPerson, firstName, lastName, dateOfBirth);
 
-            query = "SELECT * FROM budget where id_account = " + account.ID + ";";
-            result = Single(query);
-            int idBudget = Convert.ToInt32(result[0]);
-            Budget budget = new Budget(idBudget);
-
             query = "SELECT * FROM address where id_person = " + idPerson + ";";
-            result = Single(query);
+            result = Select(query);
             string street = result[2];
             string zipCode = result[3];
             string number = result[4];
             string town = result[5];
             Address address = new Address(street, zipCode, number, town);
 
+            query = "SELECT * FROM budget where id_account = " + account.ID + ";";
+            result = Select(query);
+            int idBudget = Convert.ToInt32(result[0]);
+            Budget budget = new Budget(idBudget);
+
             query = "SELECT * FROM cost where id_budget = " + budget.ID + ";";
-            List<Cost> costs = GetCosts(query);
+            result = Select(query);
+            if (result != null)
+            {
+                List<Cost> costs = new List<Cost>();
+                for (int i = 0; i < result.Count / 5; i++)
+                {
+                    int id = Convert.ToInt32(result[0 + i * 5]);
+                    int value = Convert.ToInt32(result[2 + i * 5]);
+                    CostCategory category = (CostCategory)Enum.Parse(typeof(CostCategory), result[3 + i * 5]);
+                    DateTime date = DateTime.Parse(result[4 + i * 5]);
+                    Cost cost = new Cost(id, value, category, date);
+                    costs.Add(cost);
+                }
+                budget.SetList(costs);
+            }
 
             query = "SELECT * FROM income where id_budget = " + budget.ID + ";";
-            List<Income> incomes = GetIncomes(query);
-
-
+            result = Select(query);
+            if (result != null)
+            {
+                List<Income> incomes = new List<Income>();
+                for (int i = 0; i < result.Count / 5; i++)
+                {
+                    int id = Convert.ToInt32(result[0 + i * 5]);
+                    int value = Convert.ToInt32(result[2 + i * 5]);
+                    IncomeCategory category = (IncomeCategory)Enum.Parse(typeof(IncomeCategory), result[3 + i * 5]);
+                    DateTime date = DateTime.Parse(result[4 + i * 5]);
+                    Income income = new Income(id, value, category, date);
+                    incomes.Add(income);
+                }
+                budget.SetList(incomes);
+            }
             person.SetAddress(address);
             account.SetLogin(login);
             account.SetPerson(person);
             account.SetBudget(budget);
-            account.Budget.SetCosts(costs);
-            account.Budget.SetIncomes(incomes);
+            account.SetMode(mode);
         }
-        private List<Cost> GetCosts(string query)
+        private List<string> Select(string query)
         {
-            List<Cost> costs = new List<Cost>();
-
-            var con = Database.GetInstance.GetConnection();
-            MySqlCommand cmd = new MySqlCommand(query, con);
-            con.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = Convert.ToInt32(reader[0]);
-                int value = Convert.ToInt32(reader[1]);
-                string category = reader[2].ToString();
-                DateTime date = new DateTime(1990, 1, 1);
-                CostCategory costCategory = CostCategory.Alcohol;
-
-                Cost cost = new Cost(id, value, costCategory, date);
-                costs.Add(cost);
-            }
-            con.Close();
-            return costs;
-        }
-        private List<Income> GetIncomes(string query)
-        {
-            List<Income> incomes = new List<Income>();
-
-            var con = Database.GetInstance.GetConnection();
-            MySqlCommand cmd = new MySqlCommand(query, con);
-            con.Open();
-            MySqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                int id = Convert.ToInt32(reader[0]);
-                int value = Convert.ToInt32(reader[1]);
-                string category = reader[2].ToString();
-                DateTime date = new DateTime(1990, 1, 1);
-                IncomeCategory costCategory = IncomeCategory.Other;
-
-                Income income = new Income(id, value, costCategory, date);
-                incomes.Add(income);
-            }
-            con.Close();
-            return incomes;
-        }
-        private List<string> Single(string query)
-        {
-            var con = Database.GetInstance.GetConnection();
+            var con = GetConnection();
             MySqlCommand cmd = new MySqlCommand(query, con);
             con.Open();
             MySqlDataReader reader = cmd.ExecuteReader();

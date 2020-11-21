@@ -9,10 +9,6 @@ namespace BudzetDomowy.Models
     {
         private string login;
         private string password;
-        //TESTY
-        public string GetLogin { get => this.login; }
-        //TESTY
-        public string GetPassword { get => this.password; }
         public Login()
         {
             this.login = string.Empty;
@@ -21,6 +17,14 @@ namespace BudzetDomowy.Models
         public Login(string login, string password)
         {
             this.login = login;
+            this.password = password;
+        }
+        public void ChangePassword(string password)
+        {
+            if (password.Length < 8 && password.Length >= 30)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
             this.password = password;
         }
         public static Login Examples(Person person)

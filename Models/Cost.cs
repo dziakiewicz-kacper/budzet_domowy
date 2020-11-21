@@ -29,6 +29,5 @@ namespace BudzetDomowy.Models
             this.category = category;
             this.date = date;
         }
-
     }
 }

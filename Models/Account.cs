@@ -12,16 +12,18 @@ namespace BudzetDomowy.Models
         private Login login;
         private Person person;
         private Budget budget;
-        private ICommand command;
+        private ICommandAccount command;
         private List<Goal> goals;
+        private AccountMode mode;
         public static List<Account> ListAccount = null;
         public int ID { get => this.id; set => this.id = value; }
         public Login Login { get => this.login; }
         public Person Person { get => this.person; }
         public Budget Budget { get => this.budget; }
-        public ICommand Command { get => this.command; }
+        public ICommandAccount Command { get => this.command; }
         public List<Goal> Goals { get => this.goals; }
-        public Account()
+        public AccountMode Mode { get => this.mode; }
+        private Account()
         {
             this.id = 0;
             this.login = null;
@@ -29,6 +31,11 @@ namespace BudzetDomowy.Models
             this.budget = null;
             this.command = null;
             this.goals = null;
+            this.mode = AccountMode.user;
+        }
+        public Account(int id) : this()
+        {
+            this.id = id;
         }
         public Account(int id, Person person, Budget budget) : this()
         {
@@ -36,8 +43,22 @@ namespace BudzetDomowy.Models
             this.person = person;
             this.budget = budget;
         }
-
-        public void ExecuteCommand(ICommand command)
+        public void AddGoal(Goal goal)
+        {
+            this.goals.Add(goal);
+            //insert do bazy danych
+        }
+        public void UpdateGoal()
+        {
+            throw new NotImplementedException();
+        }
+        public void DeleteGoal(Goal goal)
+        {
+            int id = goal.ID;
+            goals.RemoveAll(g => g.ID == id);
+            //delete do bazy danych
+        }
+        public void ExecuteCommand(ICommandAccount command)
         {
             try
             {
@@ -50,11 +71,15 @@ namespace BudzetDomowy.Models
         }
         public void SetLogin(Login login)
         {
+            if (login == null)
+            {
+                throw new ArgumentNullException();
+            }
             this.login = login;
         }
-        public void SetGoal(Goal goal)
+        public void SetGoals(List<Goal> goals)
         {
-            throw new NotImplementedException();
+            this.goals = goals;
         }
         public void SetBudget(Budget budget)
         {
@@ -64,34 +89,35 @@ namespace BudzetDomowy.Models
         {
             this.person = person;
         }
-        public static Account SearchAccount(int id)
+        public void SetMode(AccountMode mode)
         {
-            Account account = new Account();
-            account.ID = id;
-            SearchCommand command = new SearchCommand(Database.GetInstance);
-            account.ExecuteCommand(command);
-            return account;
+            this.mode = mode;
         }
-        public static void RegisterAccount()
+        public void ReadAccount()
         {
-            Person person = Person.Examples();
-            Budget budget = new Budget(1);
-            Account account = new Account(1, person, budget);
-            UpdateCommand command = new UpdateCommand(Database.GetInstance);
-            account.ExecuteCommand(command);
+            ReadCommandAccount command = new ReadCommandAccount(Database.GetInstance);
+            ExecuteCommand(command);
         }
-        public static List<Account> Examples(int count)
-        {
-            List<Account> listAccounts = new List<Account>();
-            for (int i = 0; i <= count; i++)
-            {
-                Person person = Person.Examples();
-                var budget = new Budget(i);
-                Account account = new Account(i, person, budget);
-                listAccounts.Add(account);
-            }
-            return listAccounts;
-        }
+        //public static void RegisterAccount()
+        //{
+        //    Person person = Person.Examples();
+        //    Budget budget = new Budget(1);
+        //    Account account = new Account(1, person, budget);
+        //    UpdateCommandAccount command = new UpdateCommandAccount(Database.GetInstance);
+        //    account.ExecuteCommand(command);
+        //}
+        //public static List<Account> Examples(int count)
+        //{
+        //    List<Account> listAccounts = new List<Account>();
+        //    for (int i = 0; i <= count; i++)
+        //    {
+        //        Person person = Person.Examples();
+        //        var budget = new Budget(i);
+        //        Account account = new Account(i, person, budget);
+        //        listAccounts.Add(account);
+        //    }
+        //    return listAccounts;
+        //}
         public static bool VerifyAccount(out int id, string login, string password)
         {
             id = 0;
