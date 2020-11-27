@@ -9,21 +9,18 @@ namespace BudzetDomowy.Controllers
 {
     public class AccountController : Controller
     {
-        private Account account = null;
         public ActionResult Index()
         {
-            if (Session["login"] == null || TempData["account"] == null)
+            if (Session["login"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            account = TempData["account"] as Account;
-            ViewBag.Account = account;
-            return View(ViewBag.Account);
+            return View(LoginController.account);
         }
         public ActionResult Logout()
         {
             Session["login"] = null;
-            account = null;
+            LoginController.account = null;
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]

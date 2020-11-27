@@ -2,37 +2,93 @@
 @{
     ViewBag.Title = "Panel Logowania";
 }
-<div class="container">
+<div class="container pt-5">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col align-content-center text-center">
             <h2>Logowanie</h2>
-            <form method="POST" action="@Url.Action("PerformLogin")">
-                <div class="input-group mb-3">
+            <form class="p-4" method="POST" action="@Url.Action("PerformLogin")">
+                <div class="input-group mb-3 justify-content-center">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Login</div>
                         <input type="text" name="login" />
                     </div>
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 justify-content-center">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Hasło</div>
                     </div>
                     <input type="text" name="password" />
                 </div>
+                @if (Session["LoginResult"] != null)
+                {
+                    <p>Takie konto nie istnieje!</p>
+                }
                 <button type="submit" class="btn btn-primary">Zaloguj się</button>
             </form>
-            @if (Session["ResultLogin"] != null)
-            {
-                <span>złe dane!</span>
-            }
-
-            @if (Session["user"] != null)
-            {
-                <span>@Session["user"]</span>
-            }
         </div>
-        <div class="col-sm-6">
+        <div class="col text-center">
             <h2>Rejestracja</h2>
+            <form class="p-4" method="post" action="@Url.Action("Register")">
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Imię</div>
+                    </div>
+                    <input class="col" type="text" name="firstname" required/>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Nazwisko</div>
+                    </div>
+                    <input class="col" type="text" name="lastname" required/>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Mail</div>
+                    </div>
+                    <input class="col" type="text" name="mail" required/>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Hasło</div>
+                    </div>
+                    <input class="col" type="text" name="password" required />
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Ulica</div>
+                    </div>
+                    <input class="col" type="text" name="street" required />
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Numer</div>
+                    </div>
+                    <input class="col" type="text" name="number" required/>
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Miejscowość</div>
+                    </div>
+                    <input class="col" type="text" name="town" required />
+                </div>
+                <div class="input-group mb-3 row">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Kod pocztowy</div>
+                    </div>
+                    <input class="col" type="text" name="zip-code" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Zarejestruj się</button>
+            </form>
+            @if (Session["RegisterResult"] != null)
+            {
+                if (Session["RegisterResult"].Equals("CreateAccount"))
+                {
+                    <span>Konto zarejestrowane!</span>
+                } else
+                {
+                    <span>Takie konto już istnieje!</span>
+                }
+            }
         </div>
     </div>
 </div>

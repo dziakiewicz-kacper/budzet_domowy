@@ -23,7 +23,7 @@ namespace BudzetDomowy.Models
         public ICommandAccount Command { get => this.command; }
         public List<Goal> Goals { get => this.goals; }
         public AccountMode Mode { get => this.mode; }
-        private Account()
+        public Account()
         {
             this.id = 0;
             this.login = null;
@@ -32,10 +32,6 @@ namespace BudzetDomowy.Models
             this.command = null;
             this.goals = null;
             this.mode = AccountMode.user;
-        }
-        public Account(int id) : this()
-        {
-            this.id = id;
         }
         public Account(int id, Person person, Budget budget) : this()
         {
@@ -92,6 +88,11 @@ namespace BudzetDomowy.Models
         public void SetMode(AccountMode mode)
         {
             this.mode = mode;
+        }
+        public void InsertAccount()
+        {
+            InsertCommandAccount command = new InsertCommandAccount(Database.GetInstance);
+            ExecuteCommand(command);
         }
         public void ReadAccount()
         {
